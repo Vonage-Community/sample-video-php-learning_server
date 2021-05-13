@@ -1,19 +1,16 @@
 <?php
 
-use OpenTok\OpenTok;
 use ICanBoogie\Storage\FileStorage;
 use Psr\Container\ContainerInterface;
-
-// Verify that the API Key and API Secret are defined
-if (!(getenv('TOKBOX_API_KEY') && getenv('TOKBOX_SECRET'))) {
-    die('You must define an TOKBOX_API_KEY and TOKBOX_SECRET');
-}
+use Vonage\Client;
+use Vonage\Client\Credentials\Keypair;
+use Vonage\Video\ClientFactory;
 
 return [
     'config' => [
-        'tokbox' => [
-            'api_key' => getenv('TOKBOX_API_KEY'),
-            'secret' => getenv('TOKBOX_SECRET'),
+        'vonage' => [
+            'key_path' => getenv('VONAGE_PRIVATE_KEY'),
+            'application_id' => getenv('VONAGE_APPLICATION_ID'),
         ],
         'views_dir' =>__DIR__ . '/../templates',
         'storage_dir' => __DIR__ . '/../storage'
@@ -27,8 +24,11 @@ return [
         return new FileStorage($c->get('config')['storage_dir']);
     }),
 
-    OpenTok::class => function (ContainerInterface $c) {
-        $tokboxConfig = $c->get('config')['tokbox'];
-        return new OpenTok($tokboxConfig['api_key'], $tokboxConfig['secret']);
+    Client::class => function(ContainerInterface $c) {
+        $vonageConfig = $c->get('config')['vonage'];
+        $client = new Client(new Keypair(file_get_contents($vonageConfig['key_path']), $vonageConfig['application_id']));
+        $client->getFactory()->set('video', new ClientFactory());
+
+        return $client;
     }
 ];

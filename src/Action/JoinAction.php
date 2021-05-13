@@ -8,13 +8,14 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Laminas\Diactoros\Response\HtmlResponse;
 use Psr\Http\Message\ServerRequestInterface;
+use Vonage\Client;
 
 class JoinAction
 {
     /**
      * @var string
      */
-    protected $apiKey;
+    protected $applicationId;
 
     /**
      * @var OpenTok
@@ -27,14 +28,19 @@ class JoinAction
     protected $storage;
 
     /**
+     * @var Client
+     */
+    protected $vonage;
+
+    /**
      * @var string
      */
     protected $viewsDir;
 
     public function __construct(ContainerInterface $container)
     {
-        $this->apiKey = $container->get('config')['tokbox']['api_key'];
-        $this->opentok = $container->get(OpenTok::class);
+        $this->applicationId = $container->get('config')['vonage']['application_id'];
+        $this->vonage = $container->get(Client::class);
         $this->storage = $container->get('storage');
         $this->viewsDir = $container->get('config')['views_dir'];
     }
@@ -47,9 +53,9 @@ class JoinAction
             $sessionId = $this->storage[$name];
 
             // generate token
-            $token = $this->opentok->generateToken($sessionId);
+            $token = $this->vonage->video()->generateClientToken($sessionId);
             $data = [
-                'apiKey' => $this->apiKey,
+                'applicationId' => $this->applicationId,
                 'sessionId' => $sessionId,
                 'token' => $token
             ];

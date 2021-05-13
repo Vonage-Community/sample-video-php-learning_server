@@ -2,8 +2,8 @@
 
 namespace OTHelloWorld\Action;
 
-use OpenTok\OpenTok;
-use OpenTok\MediaMode;
+use Vonage\Client;
+use Vonage\Video\MediaMode;
 use ICanBoogie\Storage\FileStorage;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -15,12 +15,12 @@ class RoomAction
     /**
      * @var string
      */
-    protected $apiKey;
+    protected $applicationId;
 
     /**
-     * @var OpenTok
+     * @var Client
      */
-    protected $opentok;
+    protected $vonage;
 
     /**
      * @var FileStorage<string>
@@ -29,8 +29,8 @@ class RoomAction
 
     public function __construct(ContainerInterface $container)
     {
-        $this->apiKey = $container->get('config')['tokbox']['api_key'];
-        $this->opentok = $container->get(OpenTok::class);
+        $this->applicationId = $container->get('config')['vonage']['application_id'];
+        $this->vonage = $container->get(Client::class);
         $this->storage = $container->get('storage');
     }
 
@@ -46,26 +46,24 @@ class RoomAction
             $sessionId = $this->storage[$name];
 
             // generate token
-            $token = $this->opentok->generateToken($sessionId);
+            $token = $this->vonage->video()->generateClientToken($sessionId);
             $responseData = [
-                'apiKey' => $this->apiKey,
+                'applicationId' => $this->applicationId,
                 'sessionId' => $sessionId,
                 'token'=>$token
             ];
 
             return new JsonResponse($responseData);
         } else { // Generate a new session and store it off
-            $session = $this->opentok->createSession([
-                'mediaMode' => MediaMode::ROUTED
-            ]);
+            $session = $this->vonage->video()->createSession(MediaMode::ROUTED);
 
             // store the sessionId into local
             $this->storage[$name] = $session->getSessionId();
             
             // generate token
-            $token = $this->opentok->generateToken($session->getSessionId());
+            $token = $this->vonage->video()->generateClientToken($session->getSessionId());
             $responseData = [
-                'apiKey' => $this->apiKey,
+                'applicationId' => $this->applicationId,
                 'sessionId' => $session->getSessionId(),
                 'token'=>$token
             ];

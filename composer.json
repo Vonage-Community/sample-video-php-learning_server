@@ -1,7 +1,15 @@
 {
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:Vonage/vonage-php-sdk-video.git"
+    }
+  ],
   "require": {
     "slim/slim": "^4.0",
-    "opentok/opentok": "^4.6",
+    "vonage/client-core": "enhancements/fixes-for-video-dev@dev",
+    "guzzlehttp/guzzle": "^7.0",
+    "vonage/video": "0.x-dev@dev",
     "icanboogie/storage": "^4.0",
     "vlucas/phpdotenv": "^5.3",
     "laminas/laminas-diactoros": "^2.5",
