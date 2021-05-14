@@ -2135,12 +2135,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Vonage/vonage-php-sdk-core.git",
-                "reference": "430759b29550349523b2a1f32104d4ed3b7c2e35"
+                "reference": "4754104397341cfd9cfee49ae3d2e3828e6f4936"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Vonage/vonage-php-sdk-core/zipball/430759b29550349523b2a1f32104d4ed3b7c2e35",
-                "reference": "430759b29550349523b2a1f32104d4ed3b7c2e35",
+                "url": "https://api.github.com/repos/Vonage/vonage-php-sdk-core/zipball/4754104397341cfd9cfee49ae3d2e3828e6f4936",
+                "reference": "4754104397341cfd9cfee49ae3d2e3828e6f4936",
                 "shasum": ""
             },
             "require": {
@@ -2195,7 +2195,7 @@
                 "issues": "https://github.com/Vonage/vonage-php-sdk-core/issues",
                 "source": "https://github.com/Vonage/vonage-php-sdk-core"
             },
-            "time": "2021-05-12T20:53:08+00:00"
+            "time": "2021-05-14T17:58:48+00:00"
         },
         {
             "name": "vonage/jwt",
@@ -2298,12 +2298,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:Vonage/vonage-php-sdk-video.git",
-                "reference": "eb578944b0f8d8f88901bf9a254f44c206a99b49"
+                "reference": "3cb1eb41f402dec6df4d865d30474923e0e5fa1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Vonage/vonage-php-sdk-video/zipball/eb578944b0f8d8f88901bf9a254f44c206a99b49",
-                "reference": "eb578944b0f8d8f88901bf9a254f44c206a99b49",
+                "url": "https://api.github.com/repos/Vonage/vonage-php-sdk-video/zipball/3cb1eb41f402dec6df4d865d30474923e0e5fa1a",
+                "reference": "3cb1eb41f402dec6df4d865d30474923e0e5fa1a",
                 "shasum": ""
             },
             "require": {
@@ -2343,7 +2343,7 @@
                 "source": "https://github.com/Vonage/vonage-php-sdk-video/tree/0.x",
                 "issues": "https://github.com/Vonage/vonage-php-sdk-video/issues"
             },
-            "time": "2021-05-12T21:34:24+00:00"
+            "time": "2021-05-14T19:57:59+00:00"
         }
     ],
     "packages-dev": [

@@ -2,33 +2,34 @@
 
 namespace OTHelloWorld\Action\Archive;
 
-use OpenTok\OpenTok;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ServerRequestInterface;
+use Vonage\Client;
+use Vonage\Entity\Filter\KeyValueFilter;
 
 class ListAction
 {
     /**
-     * @var OpenTok
+     * @var Client
      */
-    protected $opentok;
+    protected $vonage;
 
     public function __construct(ContainerInterface $container)
     {
-        $this->opentok = $container->get(OpenTok::class);
+        $this->vonage = $container->get(Client::class);
     }
 
     public function __invoke(ServerRequestInterface $request) : ResponseInterface
     {
-        $offset = $request->getQueryParams()['offset'] ? (int) $request->getQueryParams()['offset'] : 0;
-        $count = $request->getQueryParams()['count'] ? (int) $request->getQueryParams()['count'] : 1000;
-        $archiveList = $this->opentok->listArchives($offset, $count);
-        $archives = $archiveList->getItems();
+        $query = $request->getQueryParams();
+        $offset = $query['offset'] ?? 0;
+        $count = $query['count'] ?? 1000;
+        $archiveList = $this->vonage->video()->listArchives(new KeyValueFilter(['offset' => $offset, 'count' => $count]));
 
-        $result = array();
-        foreach ($archives as $archive) {
+        $result = [];
+        foreach ($archiveList as $archive) {
             $result[] = $archive->toArray();
         }
 

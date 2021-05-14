@@ -2,22 +2,22 @@
 
 namespace OTHelloWorld\Action\Archive;
 
-use OpenTok\OpenTok;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ServerRequestInterface;
+use Vonage\Client;
 
 class StopAction
 {
     /**
-     * @var OpenTok
+     * @var Client
      */
-    protected $opentok;
+    protected $vonage;
 
     public function __construct(ContainerInterface $container)
     {
-        $this->opentok = $container->get(OpenTok::class);
+        $this->vonage = $container->get(Client::class);
     }
 
     /**
@@ -25,8 +25,8 @@ class StopAction
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args) : ResponseInterface
     {
-        $archive = $this->opentok->stopArchive($args['archiveId']);
+        $archive = $this->vonage->video()->stopArchive($args['archiveId']);
         
-        return new JsonResponse($archive->toArray());
+        return new JsonResponse($archive);
     }
 }

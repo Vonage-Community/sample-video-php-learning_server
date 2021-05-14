@@ -23,6 +23,7 @@ use OTHelloWorld\Action\Archive\ListAction;
 use OTHelloWorld\Action\Archive\StopAction;
 use OTHelloWorld\Action\Archive\ViewAction;
 use OTHelloWorld\Action\Archive\StartAction;
+use OTHelloWorld\Action\EventsAction;
 
 try {
     $dotenv = Dotenv\Dotenv::createUnsafeImmutable(__DIR__ . '/../');
@@ -52,6 +53,7 @@ $app->map(['GET', 'POST'], '/archive/start', StartAction::class)->setName('archi
 $app->map(['GET', 'POST'], '/archive/{archiveId}', GetAction::class)->setName('archive.get');
 $app->map(['GET', 'POST'], '/archive/{archiveId}/stop', StopAction::class)->setName('archive.stop');
 $app->map(['GET', 'POST'], '/archive/{archiveId}/view', ViewAction::class)->setName('archive.view');
+$app->map(['GET', 'POST'], '/events/{type}', EventsAction::class)->setName('events');
 
 // return HTTP 200 for HTTP OPTIONS requests
 $app->options('/:routes+', function(RequestInterface $request, ResponseInterface $response) {
