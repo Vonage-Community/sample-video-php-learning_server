@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ServerRequestInterface;
 use Vonage\Client;
+use Vonage\Video\Archive\ArchiveConfig;
 
 class StartAction
 {
@@ -25,7 +26,8 @@ class StartAction
         $data = json_decode($request->getBody()->getContents(), true);
         $sessionId = $data['sessionId'];
         try {
-            $archive = $this->vonage->video()->startArchive($sessionId, ['name' => 'Getting Started Sample Archive']);
+            $config = (new ArchiveConfig($sessionId))->setName('Getting Started Sample Archive');
+            $archive = $this->vonage->video()->startArchive($config);
         } catch (\Exception $e) {
             if ($e->getCode() === 404) {
                 return new JsonResponse([
