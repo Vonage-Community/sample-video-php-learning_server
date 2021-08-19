@@ -1,15 +1,15 @@
 {
   "repositories": [
     {
-      "type": "vcs",
-      "url": "git@github.com:Vonage/vonage-php-sdk-video.git"
+      "type": "git",
+      "url": "https://github.com/jeffswartz/vonage-php-sdk-video"
     }
   ],
   "require": {
     "slim/slim": "^4.0",
     "vonage/client-core": "enhancements/fixes-for-video-dev@dev",
     "guzzlehttp/guzzle": "^7.0",
-    "vonage/video": "0.x-dev@dev",
+    "vonage/video": "dev-readme-and-api-url",
     "icanboogie/storage": "^4.0",
     "vlucas/phpdotenv": "^5.3",
     "laminas/laminas-diactoros": "^2.5",
