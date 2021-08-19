@@ -23,14 +23,9 @@
         let archiveId = '';
 
         const archiveButton = document.getElementById('archive-button');
-        archiveButton.addEventListener('click', e => {
+        archiveButton.addEventListener('click', async () => {
             archiveButton.classList.toggle('bg-blue-500');
             archiveButton.classList.toggle('bg-red-500');
-
-            archive();
-        });
-
-        async function archive() {
             if (archiveButton.getAttribute('data-state') === "stopped") {
                 const response = await fetch(getBaseUrl() + '/archive/start', {
                     method: 'POST',
@@ -42,6 +37,7 @@
                     return resp.json();
                 }).then(data => {
                     archiveId = data.id;
+                    console.log(2344, archiveId)
                     archiveButton.innerHTML = "Stop Archive";
                     archiveButton.setAttribute('data-state', "started");
                 });
@@ -59,7 +55,7 @@
                     archiveButton.setAttribute('data-state', "stopped");
                 });
             }
-        }
+        });
 
         function getBaseUrl() {
             return window.location.protocol + "//" + window.location.host;
@@ -72,6 +68,7 @@
         }
 
         function initializeSession() {
+            OT.setLogLevel(0);
             var session = OT.initSession(applicationId, sessionId);
 
             // Subscribe to a newly created stream

@@ -29,12 +29,15 @@
       Resources are defined at the following endpoints:
     <table>
       <tr>
-        <td>GET /session</td>
-        <td>Return an OpenTok API key, session ID, and token.</td>
+        <td>GET /room/:name </td>
+        <td>Return an Vonage Video key, session ID, and token associated with a room name.</td>
       </tr>
       <tr>
-        <td>GET /room/:name </td>
-        <td>Return an OpenTok API key, session ID, and token associated with a room name.</td>
+        <td>GET /room/:name/join </td>
+        <td>
+          Join a Vonage Video API session, publishing and subscribing to videos. This page
+          includes controls for starting and stopping archives.
+        </td>
       </tr>
       <tr>
         <td>POST /archive/start</td>
@@ -54,8 +57,8 @@
       </tr>
       <tr>
         <td>GET /archive</td>
-        <td>Return a list of archives. <a href="https://tokbox.com/developer/sdks/node/reference/OpenTok.html#listArchives">More Information</td>
-        <td>Pagination is enabled by applying either count or offset parameteres.</td>
+        <td>Return a list of archives. <a href="https://tokbox.com/developer/rest/#listing_archives">More Information</td>
+        <td>Pagination is enabled by applying either count or offset parameters.</td>
       </tr>
     </ul>
   </p>
