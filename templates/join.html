@@ -14,52 +14,62 @@
 
     <div class="bottom-0">
         <button id="archive-button" class="bg-blue-500 rounded p-4 font-bold text-white" data-state="stopped">Start Archive</button>
+        <button id="view-info-button" class="bg-blue-500 rounded p-4 font-bold text-white" data-state="stopped" style="display:none">
+          View Archive Info
+        </button>
+        <button id="view-button" class="bg-blue-500 rounded p-4 font-bold text-white" data-state="stopped" style="display:none">
+          View Archive
+        </button>
     </div>
 
     <script type="text/javascript">
-        const applicationId = "{{ applicationId }}";
-        const sessionId = "{{ sessionId }}";
-        const token = "{{ token }}";
+        const applicationId = '{{ applicationId }}';
+        const sessionId = '{{ sessionId }}';
+        const token = '{{ token }}';
         let archiveId = '';
+        const baseUrl = `${window.location.protocol}//${window.location.host}`;
 
         const archiveButton = document.getElementById('archive-button');
+        const viewInfoButton = document.getElementById('view-info-button');
+        const viewButton = document.getElementById('view-button');
         archiveButton.addEventListener('click', async () => {
             archiveButton.classList.toggle('bg-blue-500');
             archiveButton.classList.toggle('bg-red-500');
-            if (archiveButton.getAttribute('data-state') === "stopped") {
-                const response = await fetch(getBaseUrl() + '/archive/start', {
+            if (archiveButton.getAttribute('data-state') === 'stopped') {
+                viewButton.style.display = 'none';
+                viewInfoButton.style.display = 'none';
+                const resp = await fetch(baseUrl + '/archive/start', {
                     method: 'POST',
                     body: JSON.stringify({ sessionId }),
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                }).then(resp => {
-                    return resp.json();
-                }).then(data => {
-                    archiveId = data.id;
-                    console.log(2344, archiveId)
-                    archiveButton.innerHTML = "Stop Archive";
-                    archiveButton.setAttribute('data-state', "started");
                 });
+                const data = await resp.json();
+                archiveId = data.id;
+                archiveButton.innerHTML = 'Stop Archive';
+                archiveButton.setAttribute('data-state', 'started');
             } else {
-                const response = await fetch(getBaseUrl() + '/archive/'+ archiveId + '/stop', {
+                const resp = await fetch(baseUrl + '/archive/'+ archiveId + '/stop', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     }
-                }).then(resp => {
-                    return resp.json()
-                }).then(data => {
-                    archiveId = '';
-                    archiveButton.innerHTML = "Start Archive";
-                    archiveButton.setAttribute('data-state', "stopped");
                 });
+                archiveButton.innerHTML = 'Start Archive';
+                archiveButton.setAttribute('data-state', 'stopped');
+                viewInfoButton.style.display = 'block';
+                viewButton.style.display = 'block';
             }
         });
 
-        function getBaseUrl() {
-            return window.location.protocol + "//" + window.location.host;
-        }
+        viewInfoButton.addEventListener('click', () => {
+          window.open(`/archive/${archiveId}`)
+        });
+
+        viewButton.addEventListener('click', () => {
+          window.open(`/archive/${archiveId}/view`)
+        });
 
         function handleError(error) {
             if (error) {
@@ -71,9 +81,6 @@
             OT.setLogLevel(0);
             var session = OT.initSession(applicationId, sessionId);
 
-            // Subscribe to a newly created stream
-
-            // Create a publisher
             var publisher = OT.initPublisher('publisher', {
                 insertMode: 'append',
                 width: '100%',
