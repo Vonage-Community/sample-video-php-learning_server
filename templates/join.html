@@ -16,13 +16,17 @@
 
     <div class="bottom-0">
         <button id="archive-button" class="bg-blue-500 rounded p-4 font-bold text-white" data-state="stopped">Start Archive</button>
-        <button id="view-info-button" class="bg-blue-500 rounded p-4 font-bold text-white" data-state="stopped" style="display:none">
+        <button id="view-info-button" class="bg-blue-500 rounded p-4 font-bold text-white"style="display:none">
           View Archive Info
         </button>
-        <button id="view-button" class="bg-blue-500 rounded p-4 font-bold text-white" data-state="stopped" style="display:none">
+        <button id="view-button" class="bg-blue-500 rounded p-4 font-bold text-white" style="display:none">
           View Archive
         </button>
+        <button id="signal-button" class="bg-blue-500 rounded p-4 font-bold text-white">Send signal from server</button>
     </div>
+
+    <pre id="signal-log" class="bottom-0">
+    </pre>
 
     <script type="text/javascript">
       const applicationId = '{{ applicationId }}';
@@ -32,6 +36,7 @@
       const archiveButton = document.getElementById('archive-button');
       const viewInfoButton = document.getElementById('view-info-button');
       const viewButton = document.getElementById('view-button');
+      const signalButton = document.getElementById('signal-button');
       let archiveId = '';
 
       const handleError = (error) => {
@@ -65,6 +70,13 @@
             height: '80%'
           }, handleError);
         });
+        
+        session.on('signal', (event) => {
+          console.log(event);
+          const signalLog = document.getElementById('signal-log');
+          const { data, type, from } = event;
+          signalLog.innerHTML = JSON.stringify({ data, type, from },  null, 4);
+        });
       };
 
       archiveButton.addEventListener('click', async () => {
@@ -78,9 +90,9 @@
             body: JSON.stringify({ sessionId }),
             headers: {
               'Content-Type': 'application/json'
-            }
+            },
           });
-          const data = await resp.json();
+            const data = await resp.json();
           archiveId = data.id;
           archiveButton.innerHTML = 'Stop Archive';
           archiveButton.setAttribute('data-state', 'started');
@@ -104,6 +116,16 @@
 
       viewButton.addEventListener('click', () => {
         window.open(`/archive/${archiveId}/view`)
+      });
+
+      signalButton.addEventListener('click', async () => {
+        const resp = await fetch(baseUrl + '/signal/', {
+          method: 'POST',
+          body: JSON.stringify({ sessionId }),
+          headers: {
+            'Content-Type': 'application/json'
+          },
+        });
       });
 
       initializeSession();
