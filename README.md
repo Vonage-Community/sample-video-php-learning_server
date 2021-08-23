@@ -28,20 +28,20 @@ to create Vonage Video API sessions and generate tokens for those sessions, usin
       VONAGE_PRIVATE_KEY=000000
       ```
 
-      Also, if you need to set a test API URL, set the `VONAGE_VIDEO_API_URL` environment variable:
+      Also, if you need to set a test API URL, set the `VONAGE_VIDEO_API_SERVER_URL` environment variable:
       
       ```
-      export VONAGE_VIDEO_API_URL=https://api-eu.qa.v1.vonagenetworks.net/video
+      export VONAGE_VIDEO_API_SERVER_URL=https://api.dev.opentok.com
       ```
 
    5. Start the server using composer:
 
     `$ composer run --timeout 0 serve`
 
-  6. Visit the URL <http://localhost:3000/roomName> in your browser. (Replace `roomName` with a unique
+  6. Visit the URL <http://localhost:3000/room/roomName> in your browser. (Replace `roomName` with a unique
      room name. You should see a JSON response containing the OpenTok API key, session ID, and token.
 
-  7. Visit the URL <http://localhost:3000/roomName/join> in your browser. You should see a page with
+  7. Visit the URL <http://localhost:3000/room/roomName/join> in your browser. You should see a page with
      a test Video API session with a Video API publisher video. Open the page in another browser.
      You should see a page with a publisher and subscriber video.
      
