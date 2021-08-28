@@ -21,11 +21,14 @@ to create Vonage Video API sessions and generate tokens for those sessions, usin
 
   3. Run `composer install` command to fetch and install all dependencies.
 
-  4. Next, copy the `.env.dist` file to `.env` and edit to add your API Key and Secret:
+  4. Next, copy the `.env.dist` file to `.env` and edit to add your Vonage application ID and the
+     path to the private key file for that application:
 
       ```
-      VONAGE_APPLICATION_ID=0000000
-      VONAGE_PRIVATE_KEY=000000
+      VONAGE_APPLICATION_ID=824e6a17-7830-4343-8b97-2b72f9d09cdc
+      VONAGE_PRIVATE_KEY="/Users/bob/path-to-key/your-private-key.key"
+      ENABLE_LOGGING=false
+      LOGGING_PATH='/Users/bob/path-to-the-log-files-directory'
       ```
 
       Also, if you need to set a test API URL, set the `VONAGE_VIDEO_API_SERVER_URL` environment variable:
