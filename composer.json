@@ -6,6 +6,7 @@
     }
   ],
   "require": {
+    "php": ">=7.4 || <8.0",
     "slim/slim": "^4.0",
     "vonage/client-core": "enhancements/fixes-for-video-dev@dev",
     "guzzlehttp/guzzle": "^7.0",
