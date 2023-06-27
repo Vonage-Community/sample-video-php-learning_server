@@ -9,6 +9,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ServerRequestInterface;
+use Vonage\Video\SessionOptions;
 
 class RoomAction
 {
@@ -55,7 +56,11 @@ class RoomAction
 
             return new JsonResponse($responseData);
         } else { // Generate a new session and store it off
-            $session = $this->vonage->video()->createSession(MediaMode::ROUTED);
+            $session = $this->vonage->video()->createSession(
+                new SessionOptions(
+                    ['mediaMode' => MediaMode::ROUTED]
+                )
+            );
 
             // store the sessionId into local
             $this->storage[$name] = $session->getSessionId();
