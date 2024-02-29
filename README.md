@@ -1,4 +1,4 @@
-# OpenTok Getting Started Sample App
+# Vonage Video Getting Started Sample App
 
 <img src="https://assets.tokbox.com/img/vonage/Vonage_VideoAPI_black.svg" height="48px" alt="Tokbox is now known as Vonage" />
 
@@ -15,7 +15,7 @@ to create Vonage Video API sessions and generate tokens for those sessions, usin
 
   1. Clone the app by running the command
   
-          git clone git@github.com:opentok/learning-opentok-php.git
+          git clone git@github.com:vonage-community/sample-video-php-learning_server.git
 
   2. `cd` to the root directory.
 
@@ -25,16 +25,10 @@ to create Vonage Video API sessions and generate tokens for those sessions, usin
      path to the private key file for that application:
 
       ```
-      VONAGE_APPLICATION_ID=824e6a17-7830-4343-8b97-2b72f9d09cdc
-      VONAGE_PRIVATE_KEY="/Users/bob/path-to-key/your-private-key.key"
+      API_APPLICATION_ID=824e6a17-7830-4343-8b97-2b72f9d09cdc
+      PRIVATE_KEY="/Users/bob/path-to-key/your-private-key.key"
       ENABLE_LOGGING=false
       LOGGING_PATH='/Users/bob/path-to-the-log-files-directory'
-      ```
-
-      Also, if you need to set a test API URL, set the `VONAGE_VIDEO_API_SERVER_URL` environment variable:
-      
-      ```
-      export VONAGE_VIDEO_API_SERVER_URL=https://api.dev.opentok.com
       ```
 
    5. Start the server using composer:

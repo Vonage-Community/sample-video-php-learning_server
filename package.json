@@ -1,0 +1,15 @@
+{
+  "name": "sample-video-php-learning_server",
+  "version": "1.0.0",
+  "description": "Sample Vonage Video learning server, build system",
+  "main": "vcr-build.js",
+  "scripts": {
+    "vcr-build": "node vcr-build.js"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "archiver": "^7.0.0",
+    "simple-git": "^3.22.0"
+  }
+}

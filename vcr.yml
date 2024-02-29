@@ -1,0 +1,11 @@
+project:
+    name: vonage-video-backend-server-php
+instance:
+    name: dev
+    runtime: php8
+    region: aws.use1
+    build-script: ./install.sh
+    entrypoint: ["apache2-foreground"]
+
+debug:
+    entrypoint: [php, -S, 127.0.0.1:3000, -t, ./web]

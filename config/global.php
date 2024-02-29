@@ -4,13 +4,12 @@ use ICanBoogie\Storage\FileStorage;
 use Psr\Container\ContainerInterface;
 use Vonage\Client;
 use Vonage\Client\Credentials\Keypair;
-use Vonage\Video\ClientFactory;
 
 return [
     'config' => [
         'vonage' => [
-            'key_path' => getenv('VONAGE_PRIVATE_KEY'),
-            'application_id' => getenv('VONAGE_APPLICATION_ID'),
+            'key' => getenv('PRIVATE_KEY'),
+            'application_id' => getenv('API_APPLICATION_ID'),
         ],
         'views_dir' =>__DIR__ . '/../templates',
         'storage_dir' => __DIR__ . '/../storage'
@@ -26,8 +25,11 @@ return [
 
     Client::class => function(ContainerInterface $c) {
         $vonageConfig = $c->get('config')['vonage'];
-        $client = new Client(new Keypair(file_get_contents($vonageConfig['key_path']), $vonageConfig['application_id']));
-        $client->getFactory()->set('video', new ClientFactory());
+        $key = $vonageConfig['key'];
+        if (is_file($key)) {
+            $key = file_get_contents($vonageConfig['key']);
+        }
+        $client = new Client(new Keypair($key, $vonageConfig['application_id']));
 
         return $client;
     }

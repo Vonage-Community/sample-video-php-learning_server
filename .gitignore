@@ -4,3 +4,7 @@ storage/
 .php-version
 .vscode
 composer.phar
+node_modules/
+vcr.yml
+vcr_build/
+release/

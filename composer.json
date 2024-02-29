@@ -8,14 +8,12 @@
   "require": {
     "php": ">=7.4 || <8.0",
     "slim/slim": "^4.0",
-    "vonage/client-core": "^4.0",
-    "guzzlehttp/guzzle": "^7.0",
-    "vonage/video": "0.x-dev@dev",
+    "vonage/client": "^4.0",
     "icanboogie/storage": "^4.0 || ^6.0@dev",
     "vlucas/phpdotenv": "^5.3",
-    "laminas/laminas-diactoros": "^2.5",
     "php-di/slim-bridge": "^3.1",
-    "monolog/monolog": "^2.2"
+    "monolog/monolog": "^2.2",
+    "vonage/video": "^1.0"
   },
   "autoload": {
     "psr-4": {
@@ -23,7 +21,7 @@
     }
   },
   "scripts":{
-    "serve": "php -S 0.0.0.0:3000 -t web/"
+    "serve": "php -S 0.0.0.0:3000 -t html/"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.12.68"
