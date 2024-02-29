@@ -1,0 +1,11 @@
+project:
+    name: vonage-video-backend-server-php
+instance:
+    name: dev
+    runtime: php8
+    region: aws.use1
+    application-id: 551a390f-82ae-418b-b340-d6ae930c6ebc
+    entrypoint: [php, -S, 127.0.0.1:3000, -t, ./web]
+
+debug:
+    entrypoint: [php, -S, 127.0.0.1:3000, -t, ./web]
