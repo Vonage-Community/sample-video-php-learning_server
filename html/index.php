@@ -18,6 +18,7 @@ use OTHelloWorld\Action\SessionAction;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Dotenv\Exception\InvalidPathException;
+use Laminas\Diactoros\Response\JsonResponse;
 use OTHelloWorld\Action\Archive\GetAction;
 use OTHelloWorld\Action\Archive\ListAction;
 use OTHelloWorld\Action\Archive\StopAction;
@@ -56,6 +57,11 @@ $app->map(['GET', 'POST'], '/archive/{archiveId}/stop', StopAction::class)->setN
 $app->map(['GET', 'POST'], '/archive/{archiveId}/view', ViewAction::class)->setName('archive.view');
 $app->map(['GET', 'POST'], '/events/{type}', EventsAction::class)->setName('events');
 $app->map(['GET', 'POST'], '/signal/', SignalAction::class)->setName('signal');
+
+// Return something for health to satisfy VCR
+$app->map(['GET', 'POST'], '/_health', function() {
+    return new JsonResponse(['status' => 'ok']);
+});
 
 // return HTTP 200 for HTTP OPTIONS requests
 $app->options('/:routes+', function(RequestInterface $request, ResponseInterface $response) {

@@ -21,7 +21,7 @@
     }
   },
   "scripts":{
-    "serve": "php -S 0.0.0.0:3000 -t web/"
+    "serve": "php -S 0.0.0.0:3000 -t html/"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.12.68"
