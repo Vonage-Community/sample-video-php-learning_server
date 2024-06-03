@@ -5,6 +5,7 @@ instance:
     runtime: php8
     region: aws.use1
     entrypoint: ["apache2-foreground"]
+    build-script: ./build.sh
 
 debug:
     entrypoint: [php, -S, 127.0.0.1:3000, -t, ./web]

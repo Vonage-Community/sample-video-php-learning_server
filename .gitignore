@@ -6,5 +6,5 @@ storage/
 composer.phar
 node_modules/
 vcr.yml
-vcr_build/
+vcr-build/
 release/
