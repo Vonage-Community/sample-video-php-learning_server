@@ -14,7 +14,13 @@ While this code can be run locally or on your own server, this code is also avai
 
 You can either deploy the code as-is by clicking on "Deploy Code", or if you would like to make edits to the source code you can click "Get Code" to be dropped into an editor. You can then customize the sample application and deploy to Vonage Cloud Runtime.
 
-If you choose "Get Code" once the workspace opens you can start debugging the project by running this command in the "Terminal":
+If you choose "Get Code" once the workspace opens you will need to install the dependencies for the project. You can do this by running in the "Terminal":
+
+```
+composer install
+```
+
+Once all of the dependencies are install, you can start debugging the project by running this command in the "Terminal":
 
 ```
 vcr debug
